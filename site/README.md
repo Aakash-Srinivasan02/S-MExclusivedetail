@@ -69,5 +69,20 @@ If you want, I can:
 - Implement a working serverless Stripe Checkout endpoint (Vercel/Netlify) and wire up the subscribe buttons.
 - Add a serverless booking endpoint that emails booking requests to you.
 - Improve portfolio layout, add lazy-loading and optimized image sizes.
+I scaffolded a Netlify booking function at `netlify/functions/booking.js` that accepts POST requests and forwards booking details to SendGrid. To enable it after deploying to Netlify, set these environment variables in your Netlify site settings:
 
-Tell me which of the above you'd like next and I will scaffold the serverless functions and update the client accordingly.
+- `SENDGRID_API_KEY` — your SendGrid API key
+- `SENDGRID_TO` — email address to receive booking notifications
+- `SENDGRID_FROM` — optional from address for emails (default: `no-reply@smexclusive.local`)
+
+Notes:
+- The booking form now POSTs to `/.netlify/functions/booking` and will show success/error messages in-page.
+- If you prefer another email provider (Mailgun, SMTP), I can adapt the function.
+
+Next steps I can take for you:
+
+- Wire Stripe Checkout serverless endpoint and connect `.subscribe-btn` buttons.
+- Adapt booking function to store bookings in a database (Airtable, Fauna, DynamoDB).
+- Deploy the site to Netlify and verify functions end-to-end.
+
+Tell me which of the above you'd like next or if you want Vercel/another provider instead.

@@ -11,14 +11,31 @@ document.addEventListener('DOMContentLoaded',()=>{
   const bookingForm = document.getElementById('bookingForm');
   const bookingMessage = document.getElementById('bookingMessage');
   if(bookingForm){
-    bookingForm.addEventListener('submit', e=>{
+    bookingForm.addEventListener('submit', async e=>{
       e.preventDefault();
+      bookingMessage.textContent = 'Sending request...';
+      bookingMessage.style.color = '';
       const fd = new FormData(bookingForm);
       const data = Object.fromEntries(fd.entries());
-      console.log('Booking request (demo):', data);
-      bookingMessage.textContent = `Thanks, ${data.name || 'there'} — we received your request. We'll reach out to confirm.`;
-      bookingMessage.style.color = '#9fe8c9';
-      bookingForm.reset();
+      try{
+        const resp = await fetch('/.netlify/functions/booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if(resp.ok){
+          bookingMessage.textContent = `Thanks, ${data.name || 'there'} — we received your request. We'll reach out to confirm.`;
+          bookingMessage.style.color = '#9fe8c9';
+          bookingForm.reset();
+        } else {
+          const text = await resp.text();
+          bookingMessage.textContent = `Error: ${text}`;
+          bookingMessage.style.color = '#ffb4b4';
+        }
+      }catch(err){
+        bookingMessage.textContent = 'Network error — please try again.';
+        bookingMessage.style.color = '#ffb4b4';
+      }
     });
   }
 
