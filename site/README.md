@@ -77,19 +77,63 @@ I scaffolded a Netlify booking function at `netlify/functions/booking.js` that a
 
 Instagram integration (Netlify function)
 
-I added `netlify/functions/instagram.js` to fetch recent posts from the Instagram Graph API and return them to the client. To enable it:
+I added `netlify/functions/instagram.js` to fetch recent posts from the official Instagram Graph API and return them to the client. The function expects these Netlify environment variables:
 
-- Set `INSTAGRAM_USER_ID` (your Instagram Business/Creator account ID)
-- Set `INSTAGRAM_ACCESS_TOKEN` (a long-lived Instagram Graph API token)
+- `INSTAGRAM_USER_ID` — the numeric Instagram account ID (Business or Creator account)
+- `INSTAGRAM_ACCESS_TOKEN` — a long-lived Instagram Graph API access token (required)
+- Optional: `GRAPH_API_VERSION` — Graph API version (default: `v17.0`)
+- Optional: `INSTAGRAM_CACHE_TTL` — cache TTL in seconds (default: `300`)
 
-How to get the credentials (summary):
+Important: the Instagram Graph API requires the Instagram account to be a Business or Creator account and connected to a Facebook Page.
 
-1. Convert the Instagram account to a Business or Creator account and connect it to a Facebook Page.
-2. Create a Facebook App in developers.facebook.com and add the Instagram Graph API product.
-3. Use the Graph API Explorer or your app flow to obtain a user access token and exchange it for a long-lived token. (Facebook docs: Instagram Graph API onboarding)
-4. Store the `INSTAGRAM_USER_ID` and `INSTAGRAM_ACCESS_TOKEN` as environment variables in Netlify.
+Step-by-step: obtain `INSTAGRAM_USER_ID` and a long-lived `INSTAGRAM_ACCESS_TOKEN`
 
-Note: If you prefer not to use the Instagram API, you can use a third-party widget (LightWidget, SnapWidget, EmbedSocial) and paste their embed HTML into `index.html` instead.
+1. Convert the Instagram account to a Business or Creator account and link it to a Facebook Page (Instagram app settings).
+2. Create a Facebook App at https://developers.facebook.com/apps and add the **Instagram Graph API** product.
+3. In your App, add the necessary permissions (e.g. `instagram_basic`, `pages_read_engagement`) and generate a short-lived User Access Token via the Graph API Explorer or your app's OAuth flow.
+4. Exchange the short-lived token for a long-lived token using the Graph API:
+
+```bash
+# replace <SHORT_LIVED_TOKEN> with the token from the Graph API Explorer
+curl -X GET "https://graph.facebook.com/v17.0/oauth/access_token?grant_type=fb_exchange_token&client_id=<APP_ID>&client_secret=<APP_SECRET>&fb_exchange_token=<SHORT_LIVED_TOKEN>"
+```
+
+The response will contain `access_token` (long-lived) and `expires_in`. Save the `access_token`.
+
+5. Get the Instagram user ID for the connected account with:
+
+```bash
+curl -s "https://graph.facebook.com/v17.0/me/accounts?access_token=<LONG_LIVED_TOKEN>"
+# or use the Instagram Business Account endpoint for the Page
+```
+
+Alternatively you can fetch the instagram account id with the Page id: (replace `<PAGE_ID>`)
+
+```bash
+curl -s "https://graph.facebook.com/v17.0/<PAGE_ID>?fields=instagram_business_account&access_token=<LONG_LIVED_TOKEN>"
+```
+
+6. In Netlify, open your Site > Site settings > Build & deploy > Environment > Environment variables, and add:
+
+- `INSTAGRAM_USER_ID` = (the numeric ID)
+- `INSTAGRAM_ACCESS_TOKEN` = (the long-lived token)
+- (optional) `GRAPH_API_VERSION` = `v17.0` (or newer)
+- (optional) `INSTAGRAM_CACHE_TTL` = `300`
+
+7. Deploy the site (or run `netlify dev`) and test the endpoint in your browser:
+
+```bash
+curl "https://your-netlify-site.net/.netlify/functions/instagram?count=12"
+```
+
+Notes & alternatives
+- Official Graph API is the recommended, supported approach and avoids fragile scraping. It requires the Facebook/Instagram app setup.
+- If you need a quick non-API fallback (less stable), we previously experimented with an unauthenticated web endpoint; that approach can break due to UA checks and rate limits — not recommended for production.
+
+If you'd like, I can:
+
+- Walk through creating the Facebook App and exchanging the token (I can produce a checklist with exact Graph API Explorer steps).
+- Add a small Netlify build-time check to validate the env vars and fail fast if misconfigured.
 
 Notes:
 - The booking form now POSTs to `/.netlify/functions/booking` and will show success/error messages in-page.
