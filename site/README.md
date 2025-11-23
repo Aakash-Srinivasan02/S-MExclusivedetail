@@ -69,6 +69,23 @@ If you want, I can:
 - Implement a working serverless Stripe Checkout endpoint (Vercel/Netlify) and wire up the subscribe buttons.
 - Add a serverless booking endpoint that emails booking requests to you.
 - Improve portfolio layout, add lazy-loading and optimized image sizes.
+ - Implement a working serverless Stripe Checkout endpoint (Vercel/Netlify) and wire up the subscribe buttons. I added a sample implementation:
+
+	 - `netlify/functions/create-checkout-session.js` — creates Stripe Checkout sessions using `STRIPE_SECRET_KEY` and price IDs.
+
+	 Environment variables required for Stripe:
+
+	 - `STRIPE_SECRET_KEY` — your Stripe secret key (server-side)
+	 - `STRIPE_PRICE_MONTHLY_ID` — Stripe Price ID for the monthly plan
+	 - `STRIPE_PRICE_PREMIUM_ID` — Stripe Price ID for the premium plan (optional)
+	 - `STRIPE_SUCCESS_URL` — redirect after successful checkout
+	 - `STRIPE_CANCEL_URL` — redirect for cancelled checkout
+
+	 The client already wires the `Subscribe` buttons to POST `{ "plan": "monthly" }` to `/.netlify/functions/create-checkout-session` and redirects the browser to the returned Checkout URL.
+
+ - Add a serverless booking endpoint that emails booking requests to you.
+ - Improve portfolio layout, add lazy-loading and optimized image sizes.
+
 I scaffolded a Netlify booking function at `netlify/functions/booking.js` that accepts POST requests and forwards booking details to SendGrid. To enable it after deploying to Netlify, set these environment variables in your Netlify site settings:
 
 - `SENDGRID_API_KEY` — your SendGrid API key

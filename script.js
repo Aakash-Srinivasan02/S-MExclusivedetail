@@ -49,9 +49,29 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   // simple subscribe buttons (placeholder for Stripe)
   document.querySelectorAll('.subscribe-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const confirmMsg = 'To enable subscriptions, connect Stripe and create a server endpoint. See site/README.md for steps.';
-      alert(confirmMsg);
+    btn.addEventListener('click', async (e)=>{
+      const plan = btn.dataset.plan || 'monthly';
+      btn.disabled = true;
+      const original = btn.textContent;
+      btn.textContent = 'Connecting...';
+      try{
+        const resp = await fetch('/.netlify/functions/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan })
+        });
+        const json = await resp.json();
+        if(resp.ok && json.url){
+          window.location.href = json.url;
+          return;
+        }
+        alert('Payment setup error: ' + (json.error || 'unknown'));
+      }catch(err){
+        alert('Network error creating checkout session.');
+      }finally{
+        btn.disabled = false;
+        btn.textContent = original;
+      }
     });
   });
 
