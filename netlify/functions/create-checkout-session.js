@@ -38,10 +38,27 @@ exports.handler = async (event) => {
     const Stripe = require('stripe');
     const stripe = Stripe(STRIPE_SECRET_KEY);
 
+    // if a lookup_key was provided, try to resolve to a price ID
+    let resolvedPriceId = priceId;
+    if (!resolvedPriceId && body.lookup_key) {
+      try {
+        const list = await stripe.prices.list({ lookup_keys: [body.lookup_key], limit: 1 });
+        if (Array.isArray(list.data) && list.data.length) {
+          resolvedPriceId = list.data[0].id;
+        }
+      } catch (e) {
+        // ignore resolution error and fall through
+      }
+    }
+
+    if (!resolvedPriceId) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'No price configured or lookup_key could not be resolved' }) };
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
-      line_items: [{ price: priceId, quantity: 1 }],
+      line_items: [{ price: resolvedPriceId, quantity: 1 }],
       success_url: SUCCESS_URL,
       cancel_url: CANCEL_URL,
     });

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Subscribe — S&M Exclusive Details</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container" style="padding-top:2rem;padding-bottom:2rem;">
+      <section class="card" style="max-width:520px;margin:0 auto;">
+        <div class="product" style="display:flex;align-items:center;gap:1rem;">
+          <svg width="28" height="32" viewBox="0 0 14 16" xmlns="http://www.w3.org/2000/svg" fill="#E184DF"><path d="M127,50 L126,50 C123.238576,50 121,47.7614237 121,45 C121,42.2385763 123.238576,40 126,40 L135,40 L135,56 L133,56 L133,42 L129,42 L129,56 L127,56 L127,50 Z M127,48 L127,42 L126,42 C124.343146,42 123,43.3431458 123,45 C123,46.6568542 124.343146,48 126,48 L127,48 Z"/></svg>
+          <div class="description">
+            <h3>Starter Plan</h3>
+            <h5>$20.00 / month</h5>
+          </div>
+        </div>
+
+        <form id="subscribeForm" style="margin-top:1rem;">
+          <!-- Replace the lookup_key value with your Stripe Price lookup_key -->
+          <input type="hidden" name="lookup_key" id="lookup_key" value="starter_monthly" />
+          <button id="checkout-and-portal-button" class="btn btn-primary" type="submit">Checkout</button>
+        </form>
+
+        <p class="muted small" style="margin-top:1rem;">You will be redirected to Stripe Checkout to complete your subscription.</p>
+      </section>
+    </main>
+    <script src="subscribe.js"></script>
+  </body>
+</html>
