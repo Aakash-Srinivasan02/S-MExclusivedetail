@@ -69,4 +69,33 @@ document.addEventListener('DOMContentLoaded',()=>{
       document.body.appendChild(overlay);
     });
   }
+
+  // populate Instagram strip via Netlify function (fallback to existing images)
+  (async function populateInstagram(){
+    const strip = document.querySelector('.strip-track');
+    if(!strip) return;
+    try{
+      const resp = await fetch('/.netlify/functions/instagram?count=12');
+      if(!resp.ok) throw new Error('Instagram fetch failed');
+      const json = await resp.json();
+      if(json && Array.isArray(json.items) && json.items.length){
+        strip.innerHTML = '';
+        json.items.forEach(it=>{
+          const a = document.createElement('a');
+          a.href = it.permalink || '#';
+          a.target = '_blank';
+          const img = document.createElement('img');
+          img.src = it.url;
+          img.alt = 'Instagram image';
+          a.appendChild(img);
+          strip.appendChild(a);
+        });
+        // duplicate for seamless scroll
+        json.items.forEach(it=>{ const img = document.createElement('img'); img.src = it.url; img.alt=''; strip.appendChild(img); });
+      }
+    }catch(err){
+      // leave placeholders
+      console.warn('Instagram strip load failed:', err);
+    }
+  })();
 });

@@ -75,6 +75,22 @@ I scaffolded a Netlify booking function at `netlify/functions/booking.js` that a
 - `SENDGRID_TO` — email address to receive booking notifications
 - `SENDGRID_FROM` — optional from address for emails (default: `no-reply@smexclusive.local`)
 
+Instagram integration (Netlify function)
+
+I added `netlify/functions/instagram.js` to fetch recent posts from the Instagram Graph API and return them to the client. To enable it:
+
+- Set `INSTAGRAM_USER_ID` (your Instagram Business/Creator account ID)
+- Set `INSTAGRAM_ACCESS_TOKEN` (a long-lived Instagram Graph API token)
+
+How to get the credentials (summary):
+
+1. Convert the Instagram account to a Business or Creator account and connect it to a Facebook Page.
+2. Create a Facebook App in developers.facebook.com and add the Instagram Graph API product.
+3. Use the Graph API Explorer or your app flow to obtain a user access token and exchange it for a long-lived token. (Facebook docs: Instagram Graph API onboarding)
+4. Store the `INSTAGRAM_USER_ID` and `INSTAGRAM_ACCESS_TOKEN` as environment variables in Netlify.
+
+Note: If you prefer not to use the Instagram API, you can use a third-party widget (LightWidget, SnapWidget, EmbedSocial) and paste their embed HTML into `index.html` instead.
+
 Notes:
 - The booking form now POSTs to `/.netlify/functions/booking` and will show success/error messages in-page.
 - If you prefer another email provider (Mailgun, SMTP), I can adapt the function.
