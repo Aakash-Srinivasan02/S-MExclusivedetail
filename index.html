@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>S&M Exclusive Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="logo" href="#">S&M Exclusive Details</a>
+      <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav id="mainNav" class="main-nav">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#booking">Book</a>
+        <a href="#subscribe">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner container">
+        <div class="hero-content">
+          <h1>Mobile Elite Detailing</h1>
+          <p class="lead">Concierge automotive detailing — glossy finishes, showroom protection, and monthly care plans.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#booking">Book Now</a>
+            <a class="btn btn-outline" href="#portfolio">View Portfolio</a>
+          </div>
+        </div>
+        <div class="hero-media" aria-hidden="true">
+          <div class="hero-overlay">
+            <h3>SM Exclusive Details</h3>
+            <p class="muted">Showroom-grade results, mobile service.</p>
+            <a class="btn btn-primary" href="#booking">Request An Appointment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-preview container">
+      <h2>Top Services</h2>
+      <div class="grid">
+        <a class="card preview" href="service-signature.html">
+          <h3>Signature Detail</h3>
+          <p class="muted">Full exterior + interior, paint decontamination.</p>
+          <p class="price">From $249</p>
+        </a>
+        <a class="card preview" href="service-protection.html">
+          <h3>Ceramic Protection</h3>
+          <p class="muted">Long-term hydrophobic coating and protection.</p>
+          <p class="price">From $699</p>
+        </a>
+        <a class="card preview" href="service-maintenance.html">
+          <h3>Monthly Maintenance</h3>
+          <p class="muted">Scheduled upkeep for glossy, protected finishes.</p>
+          <p class="price">From $129/mo</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="instagram" class="instagram container">
+      <h2>From Our Instagram</h2>
+      <div class="insta-strip" aria-hidden="false">
+        <div class="strip-track">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800&auto=format&fit=crop" alt="insta1">
+          <img src="https://images.unsplash.com/photo-1542367597-3e4b6d9cc6a5?q=80&w=800&auto=format&fit=crop" alt="insta2">
+          <img src="https://images.unsplash.com/photo-1473483596647-8df3e0f0d3f8?q=80&w=800&auto=format&fit=crop" alt="insta3">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800&auto=format&fit=crop" alt="insta4">
+          <img src="https://images.unsplash.com/photo-1542367597-3e4b6d9cc6a5?q=80&w=800&auto=format&fit=crop" alt="insta5">
+          <!-- duplicate for seamless scroll -->
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800&auto=format&fit=crop" alt="insta1">
+          <img src="https://images.unsplash.com/photo-1542367597-3e4b6d9cc6a5?q=80&w=800&auto=format&fit=crop" alt="insta2">
+        </div>
+      </div>
+      <p class="muted small">Sync this strip with Instagram using the Webflow Instagram widget or an API-backed serverless function.</p>
+    </section>
+
+    <section id="testimonials" class="testimonials container">
+      <h2>What Clients Say</h2>
+      <div class="grid">
+        <div class="card">
+          <p>"Absolutely flawless. My car looks brand new — highly recommend SM Exclusive."</p>
+          <p class="muted">— Jordan R.</p>
+        </div>
+        <div class="card">
+          <p>"Professional, punctual, and the finish lasted for months. Worth every penny."</p>
+          <p class="muted">— Aisha M.</p>
+        </div>
+        <div class="card">
+          <p>"Their monthly plan keeps my vehicle spotless without me lifting a finger."</p>
+          <p class="muted">— Carlos T.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services container">
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="card service">
+          <h3>Signature Detail</h3>
+          <p>Full exterior and interior detailing, ceramic coating option, paint decontamination.</p>
+        </div>
+        <div class="card service">
+          <h3>Protection Plan</h3>
+          <p>Ceramic coating, hydrophobic sealants, and monthly maintenance visits.</p>
+        </div>
+        <div class="card service">
+          <h3>Concierge Mobile</h3>
+          <p>On-site detailing at your home or office with premium products.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="portfolio container">
+      <h2>Portfolio</h2>
+      <div class="grid gallery" id="gallery">
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1400&auto=format&fit=crop" alt="Shiny coupe"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1542367597-3e4b6d9cc6a5?q=80&w=1400&auto=format&fit=crop" alt="Detailing close-up"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1400&auto=format&fit=crop" alt="Interior detail"></figure>
+        <figure class="tile"><img src="https://images.unsplash.com/photo-1473483596647-8df3e0f0d3f8?q=80&w=1400&auto=format&fit=crop" alt="Coating finish"></figure>
+      </div>
+    </section>
+
+    <section id="booking" class="booking container">
+      <h2>Book a Service</h2>
+      <form id="bookingForm" class="booking-form">
+        <div class="row">
+          <label>Full name<input name="name" type="text" required></label>
+          <label>Phone<input name="phone" type="tel" required></label>
+        </div>
+        <div class="row">
+          <label>Service
+            <select name="service" required>
+              <option>Signature Detail</option>
+              <option>Protection Plan</option>
+              <option>Quick Refresh</option>
+            </select>
+          </label>
+          <label>Date<input name="date" type="date" required></label>
+        </div>
+        <label>Address<input name="address" type="text" placeholder="Street, City, ZIP" required></label>
+        <label>Notes<textarea name="notes" rows="3" placeholder="Optional details"></textarea></label>
+        <div class="row">
+          <button class="btn btn-primary" type="submit">Request Booking</button>
+          <button id="callBtn" type="button" class="btn btn-ghost">Call / Text</button>
+        </div>
+        <p id="bookingMessage" class="muted"></p>
+      </form>
+    </section>
+
+    <section id="subscribe" class="subscribe container">
+      <h2>Monthly Care Plans</h2>
+      <div class="grid">
+        <div class="card plan">
+          <h3>Monthly Maintenance</h3>
+          <p class="price">$149<span class="muted">/mo</span></p>
+          <ul>
+            <li>Monthly on-site wash & interior touch</li>
+            <li>Priority booking</li>
+            <li>10% off coatings & extras</li>
+          </ul>
+          <button class="btn btn-primary subscribe-btn">Subscribe</button>
+        </div>
+        <div class="card plan">
+          <h3>Premium Care</h3>
+          <p class="price">$249<span class="muted">/mo</span></p>
+          <ul>
+            <li>Bi-weekly maintenance</li>
+            <li>One annual ceramic detail</li>
+            <li>Priority support & concierge</li>
+          </ul>
+          <button class="btn btn-primary subscribe-btn">Subscribe</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© <span id="year"></span> MySite</div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
